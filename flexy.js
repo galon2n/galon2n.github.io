@@ -47,7 +47,13 @@ function logHistory(provider, operation) {
 // Display the history of a selected provider
 function showHistory(provider) {
     const historyElement = document.getElementById(`${provider}-history`);
-    historyElement.innerHTML = history[provider].map(entry => `<p>${entry}</p>`).join('');
+    // Toggle visibility
+    if (historyElement.style.display === 'none' || historyElement.style.display === '') {
+        historyElement.innerHTML = history[provider].map(entry => `<p>${entry}</p>`).join('');
+        historyElement.style.display = 'block';
+    } else {
+        historyElement.style.display = 'none';
+    }
 }
 
 // Reset all balances to zero
