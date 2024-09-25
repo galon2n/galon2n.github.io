@@ -212,3 +212,34 @@ form button {
         width: 100%;
     }
 }
+
+
+
+/* General Styles */
+.isp-section {
+    border: 1px solid #e0e0e0;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.history {
+    margin-top: 10px;
+    background-color: #f1f3f5;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+}
+
+button.btn-home, button.btn-reset {
+    margin-top: 20px;
+    width: 200px;
+}
+
+h2 {
+    color: #007bff;
+    margin-bottom: 20px;
+}
