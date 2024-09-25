@@ -10,6 +10,7 @@
         .controls { display: flex; gap: 10px; }
         .btn { padding: 5px 10px; cursor: pointer; }
         .btn-add { background-color: lightgreen; }
+        .btn-subtract { background-color: lightcoral; }
         .btn-delete { background-color: salmon; }
     </style>
 </head>
@@ -30,10 +31,11 @@
             customers.forEach((customer, index) => {
                 customerList.innerHTML += `
                     <div class="customer">
-                        <span>${customer.name} - $${customer.balance}</span>
+                        <span>${customer.name} - $${customer.balance.toFixed(2)}</span>
                         <div class="controls">
                             <input type="number" id="input-${index}" placeholder="Enter amount">
                             <button class="btn btn-add" onclick="increase(${index})">Increase</button>
+                            <button class="btn btn-subtract" onclick="subtract(${index})">Subtract</button>
                             <button class="btn btn-delete" onclick="deleteCustomer(${index})">Delete</button>
                         </div>
                     </div>
@@ -45,6 +47,14 @@
             const input = document.getElementById(`input-${index}`);
             const amount = parseFloat(input.value) || 0;
             customers[index].balance += amount;
+            localStorage.setItem('customers', JSON.stringify(customers));
+            renderCustomers();
+        }
+
+        function subtract(index) {
+            const input = document.getElementById(`input-${index}`);
+            const amount = parseFloat(input.value) || 0;
+            customers[index].balance -= amount;
             localStorage.setItem('customers', JSON.stringify(customers));
             renderCustomers();
         }
