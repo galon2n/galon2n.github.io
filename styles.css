@@ -243,3 +243,39 @@ h2 {
     color: #007bff;
     margin-bottom: 20px;
 }
+
+/* Style for Create and Flexy buttons on the home page */
+.create-btn, .flexy-btn {
+    padding: 15px 30px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    margin: 20px;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 200px; /* Set a width for consistency */
+    text-transform: uppercase;
+}
+
+.create-btn:hover, .flexy-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.create-btn:focus, .flexy-btn:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Add focus shadow */
+}
+
+/* Responsive button design */
+@media (max-width: 768px) {
+    .create-btn, .flexy-btn {
+        width: 100%;
+        margin: 10px 0;
+    }
+}
