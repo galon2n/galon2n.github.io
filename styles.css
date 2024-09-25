@@ -25,7 +25,7 @@ h1 {
 
 /* Buttons Styling */
 button {
-    padding: 10px 20px;
+    padding: 12px 20px;
     background-color: #007BFF;
     color: white;
     border: none;
@@ -34,6 +34,8 @@ button {
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 150px;
+    text-align: center;
 }
 
 button:hover {
@@ -42,6 +44,7 @@ button:hover {
 
 .back-btn {
     background-color: #28a745;
+    width: auto;
 }
 
 .back-btn:hover {
@@ -82,6 +85,8 @@ button:hover {
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 120px;
+    text-align: center;
 }
 
 .btn-add {
@@ -117,8 +122,9 @@ input[type="number"] {
     border: 1px solid #ced4da;
     border-radius: 5px;
     font-size: 1rem;
-    width: 100px;
+    width: 80px;
     text-align: center;
+    margin-right: 10px; /* Spacing between input and buttons */
 }
 
 /* Form Styles */
@@ -147,12 +153,19 @@ input[type="number"] {
     border-radius: 5px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
+    width: calc(100% - 24px); /* Full width with padding */
 }
 
 input[type="text"]:focus,
 input[type="number"]:focus {
     border-color: #007BFF;
     outline: none;
+}
+
+/* Align the form buttons to the center */
+form button {
+    align-self: center;
+    width: 160px;
 }
 
 /* Media Queries for Responsiveness */
@@ -168,6 +181,11 @@ input[type="number"]:focus {
     }
 
     input[type="number"] {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .btn {
         width: 100%;
     }
 }
@@ -185,10 +203,12 @@ input[type="number"]:focus {
     .btn {
         padding: 8px 10px;
         font-size: 0.8rem;
+        width: 100%;
     }
 
     input[type="number"],
     input[type="text"] {
         font-size: 0.9rem;
+        width: 100%;
     }
 }
