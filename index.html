@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .customer { display: flex; justify-content: space-between; padding: 10px; }
+        .controls { display: flex; gap: 10px; }
+        .btn { padding: 5px 10px; cursor: pointer; }
+        .btn-add { background-color: lightgreen; }
+        .btn-delete { background-color: salmon; }
+    </style>
+</head>
+<body>
+
+    <h1>Customer Management</h1>
+    <button onclick="window.location.href='create.html'">Create New Customer</button>
+
+    <div id="customer-list"></div>
+
+    <script>
+        let customers = JSON.parse(localStorage.getItem('customers')) || [];
+
+        function renderCustomers() {
+            const customerList = document.getElementById('customer-list');
+            customerList.innerHTML = '';
+
+            customers.forEach((customer, index) => {
+                customerList.innerHTML += `
+                    <div class="customer">
+                        <span>${customer.name} - $${customer.balance}</span>
+                        <div class="controls">
+                            <input type="number" id="input-${index}" placeholder="Enter amount">
+                            <button class="btn btn-add" onclick="increase(${index})">Increase</button>
+                            <button class="btn btn-delete" onclick="deleteCustomer(${index})">Delete</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function increase(index) {
+            const input = document.getElementById(`input-${index}`);
+            const amount = parseFloat(input.value) || 0;
+            customers[index].balance += amount;
+            localStorage.setItem('customers', JSON.stringify(customers));
+            renderCustomers();
+        }
+
+        function deleteCustomer(index) {
+            customers.splice(index, 1);
+            localStorage.setItem('customers', JSON.stringify(customers));
+            renderCustomers();
+        }
+
+        window.onload = renderCustomers;
+    </script>
+
+</body>
+</html>
