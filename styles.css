@@ -1,102 +1,161 @@
 /* General Styles */
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px;
 }
 
 h1 {
-    margin-top: 20px;
+    margin: 20px 0;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #007BFF;
+    text-align: center;
 }
 
+/* Buttons Styling */
 button {
-    margin: 10px 0;
-    padding: 10px 15px;
+    padding: 10px 20px;
     background-color: #007BFF;
     color: white;
     border: none;
-    cursor: pointer;
     border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
-.customer {
-    display: flex;
-    justify-content: space-between;
-    width: 90%;
-    max-width: 600px;
-    padding: 10px;
-    background-color: #f4f4f4;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
-
-.controls {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-}
-
-.btn {
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.btn-add {
-    background-color: lightgreen;
-}
-
-.btn-subtract {
-    background-color: lightcoral;
-}
-
-.btn-delete {
-    background-color: salmon;
-}
-
-/* Input fields */
-input {
-    padding: 5px;
-    width: 80px;
-}
-
-/* Create Page Styles */
-form {
-    width: 90%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-label {
-    margin-bottom: 5px;
-}
-
-input {
-    padding: 10px;
-    font-size: 1rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
 .back-btn {
-    background-color: #007BFF;
-    margin-top: 10px;
+    background-color: #28a745;
 }
 
-button:hover {
+.back-btn:hover {
     background-color: #218838;
 }
 
-/* Responsive Design */
+/* Customer List */
+.customer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 700px;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.customer:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Controls for buttons */
+.controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-add {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-add:hover {
+    background-color: #218838;
+}
+
+.btn-subtract {
+    background-color: #ffc107;
+    color: white;
+}
+
+.btn-subtract:hover {
+    background-color: #e0a800;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* Input Styling */
+input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 100px;
+    text-align: center;
+}
+
+/* Form Styles */
+form {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    font-size: 1rem;
+    color: #495057;
+}
+
+input[type="text"],
+input[type="number"] {
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     .customer {
         flex-direction: column;
@@ -104,19 +163,11 @@ button:hover {
     }
 
     .controls {
-        justify-content: flex-start;
+        flex-wrap: wrap;
         width: 100%;
     }
 
-    input {
-        width: 100%;
-    }
-
-    button {
-        width: 100%;
-    }
-
-    form {
+    input[type="number"] {
         width: 100%;
     }
 }
@@ -127,14 +178,17 @@ button:hover {
     }
 
     button {
-        padding: 8px 10px;
+        padding: 10px 15px;
+        font-size: 0.9rem;
     }
 
     .btn {
-        padding: 5px 8px;
+        padding: 8px 10px;
+        font-size: 0.8rem;
     }
 
-    input {
+    input[type="number"],
+    input[type="text"] {
         font-size: 0.9rem;
     }
 }
