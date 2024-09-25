@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>ISP Flexy Management</title>
+</head>
+<body>
+    <h1>ISP Flexy Management</h1>
+
+    <!-- Total Balance of all ISPs -->
+    <h2>Total Balance: <span id="total-balance">0</span> DA</h2>
+
+    <!-- Ooredoo Section -->
+    <div class="isp-section">
+        <h3>Ooredoo</h3>
+        <input type="number" id="ooredoo-input" value="0">
+        <button class="btn btn-add" onclick="addFlexy('ooredoo')">+ Add</button>
+        <button class="btn btn-subtract" onclick="subtractFlexy('ooredoo')">- Subtract</button>
+        <button class="btn btn-history" onclick="showHistory('ooredoo')">Show History</button>
+        <div id="ooredoo-history" class="history"></div>
+    </div>
+
+    <!-- Djezzy Section -->
+    <div class="isp-section">
+        <h3>Djezzy</h3>
+        <input type="number" id="djezzy-input" value="0">
+        <button class="btn btn-add" onclick="addFlexy('djezzy')">+ Add</button>
+        <button class="btn btn-subtract" onclick="subtractFlexy('djezzy')">- Subtract</button>
+        <button class="btn btn-history" onclick="showHistory('djezzy')">Show History</button>
+        <div id="djezzy-history" class="history"></div>
+    </div>
+
+    <!-- Mobilis Section -->
+    <div class="isp-section">
+        <h3>Mobilis</h3>
+        <input type="number" id="mobilis-input" value="0">
+        <button class="btn btn-add" onclick="addFlexy('mobilis')">+ Add</button>
+        <button class="btn btn-subtract" onclick="subtractFlexy('mobilis')">- Subtract</button>
+        <button class="btn btn-history" onclick="showHistory('mobilis')">Show History</button>
+        <div id="mobilis-history" class="history"></div>
+    </div>
+
+    <!-- Reset Button to Reset All Balances -->
+    <button class="btn btn-reset" onclick="resetAll()">Reset All</button>
+
+    <!-- Button to Return to Home Page -->
+    <button class="btn btn-home" onclick="window.location.href='index.html'">Return to Home</button>
+
+    <script src="flexy.js"></script>
+</body>
+</html>
