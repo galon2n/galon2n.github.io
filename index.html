@@ -28,7 +28,7 @@
             customers.forEach((customer, index) => {
                 customerList.innerHTML += `
                     <div class="customer">
-                        <span>${customer.name} - ${customer.balance.toFixed(2)}</span>
+                        <span>${customer.name} - DA ${customer.balance.toFixed(2)}</span>
                         <div class="controls">
                             <input type="number" id="input-${index}" placeholder="Saisir le montant">
                             <button class="btn btn-add" onclick="increase(${index})">Augmenter</button>
