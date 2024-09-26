@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <title>Delete Data</title>
+</head>
+<body>
+    <h1>Data Reset</h1>
+    <p>All stored data has been reset.</p>
+    <button onclick="goHome()">Return to Home</button>
+
+    <script>
+        // Reset all data in localStorage
+        localStorage.clear(); // This will clear all data stored in localStorage
+
+        // Function to navigate back to the home page
+        function goHome() {
+            window.location.href = 'index.html'; // Replace with the actual name of your home page
+        }
+
+        // Optionally, you could also reset any in-memory variables if you have them.
+        // balances = { ooredoo: 0, djezzy: 0, mobilis: 0 };
+        // history = { ooredoo: [], djezzy: [], mobilis: [] };
+    </script>
+</body>
+</html>
