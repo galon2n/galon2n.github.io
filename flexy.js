@@ -62,9 +62,9 @@ function resetAll() {
     balances.djezzy = 0;
     balances.mobilis = 0;
     updateTotalBalance();
-    history.ooredoo = [];
-    history.djezzy = [];
-    history.mobilis = [];
+  //  history.ooredoo = [];
+   // history.djezzy = [];
+   // history.mobilis = [];
     document.getElementById('ooredoo-history').innerHTML = '';
     document.getElementById('djezzy-history').innerHTML = '';
     document.getElementById('mobilis-history').innerHTML = '';
