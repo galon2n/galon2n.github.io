@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Management</title>
+    <title>Gestion des Clients</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Management</title>
+    <title>Gestion des Clients</title>
     <!-- Link to External CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <h1>Customer Management</h1>
-    <button class="create-btn" onclick="window.location.href='create.html'">Create New Customer</button>
-    <button class="flexy-btn" onclick="window.location.href='flexy.html'">Go to ISP Flexy Management</button>
+    <h1>Gestion des Clients</h1>
+    <button class="create-btn" onclick="window.location.href='create.html'">Créer un Nouveau Client</button>
+    <button class="flexy-btn" onclick="window.location.href='flexy.html'">Aller à la Gestion Flexy</button>
 
     <div id="customer-list"></div>
 
@@ -28,12 +28,12 @@
             customers.forEach((customer, index) => {
                 customerList.innerHTML += `
                     <div class="customer">
-                        <span>${customer.name} - $${customer.balance.toFixed(2)}</span>
+                        <span>${customer.name} - ${customer.balance.toFixed(2)}</span>
                         <div class="controls">
-                            <input type="number" id="input-${index}" placeholder="Enter amount">
-                            <button class="btn btn-add" onclick="increase(${index})">Increase</button>
-                            <button class="btn btn-subtract" onclick="subtract(${index})">Subtract</button>
-                            <button class="btn btn-delete" onclick="deleteCustomer(${index})">Delete</button>
+                            <input type="number" id="input-${index}" placeholder="Saisir le montant">
+                            <button class="btn btn-add" onclick="increase(${index})">Augmenter</button>
+                            <button class="btn btn-subtract" onclick="subtract(${index})">Soustraire</button>
+                            <button class="btn btn-delete" onclick="deleteCustomer(${index})">Supprimer</button>
                         </div>
                     </div>
                 `;
