@@ -65,9 +65,17 @@ function updateTotalBalance() {
 }
 
 // Log history of operations
+// Log history of operations
 function logHistory(provider, operation) {
     const time = new Date().toLocaleString();
+    
+    // Push the new operation to the history
     history[provider].push(`${operation} DA at ${time}`);
+    
+    // Check if history length exceeds 10
+    if (history[provider].length > 10) {
+        history[provider].shift(); // Remove the oldest entry
+    }
 }
 
 // Display the history of a selected provider
