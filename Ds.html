@@ -63,21 +63,24 @@
       background-color: #dc3545;
       color: white;
     }
-    .reset {
-      background-color: #ffc107;
-      color: white;
-      margin-top: 20px;
-      width: 200px;
-    }
-    .home {
+
+    /* Common style for Reset and Home buttons */
+    .action-btn {
       background-color: #007bff;
       color: white;
       padding: 10px 20px;
       text-decoration: none;
-      display: inline-block;
-      margin-top: 20px;
       font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      margin: 20px 10px;
+      cursor: pointer;
+      display: inline-block;
     }
+    .action-btn:hover {
+      background-color: #0056b3;
+    }
+
     #qrValueDisplay {
       font-size: 1.5rem;
       font-weight: bold;
@@ -114,10 +117,10 @@
   </table>
 
   <!-- Reset Button -->
-  <button class="reset" id="resetBtn">Reset Stored Data</button>
+  <button class="action-btn" id="resetBtn">Reset Stored Data</button>
 
   <!-- Button to return to Home page -->
-  <a href="index.html" class="home">Return to Home</a>
+  <a href="index.html" class="action-btn">Return to Home</a>
 
   <!-- Include jsQR from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
