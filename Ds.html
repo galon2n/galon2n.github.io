@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Scanner with Validation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    #camera {
+      width: 50%; /* Smaller camera display */
+      margin: 10px auto;
+      border: 2px solid #333;
+      display: block;
+    }
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid #333;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #333;
+      color: white;
+    }
+    td {
+      background-color: #fff;
+    }
+    canvas {
+      display: none; /* Canvas is hidden as it's used for QR scanning */
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      width: 50%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .buttons button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+    .accept {
+      background-color: #28a745;
+      color: white;
+    }
+    .reject {
+      background-color: #dc3545;
+      color: white;
+    }
+    #qrValueDisplay {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Total Value: <span id="totalValue">0</span></h2>
+  <video id="camera" autoplay playsinline></video>
+  <canvas id="canvas"></canvas>
+
+  <!-- Display the scanned QR value automatically -->
+  <div id="qrValueDisplay">Scanned QR Code: <span id="scannedValue">None</span></div>
+
+  <div class="buttons">
+    <button class="reject" id="rejectBtn">Reject</button>
+    <button class="accept" id="acceptBtn">Accept</button>
+  </div>
+
+  <h2>Scanned Codes</h2>
+  <table id="qrTable">
+    <thead>
+      <tr>
+        <th>QR Code Value</th>
+        <th>Date of Scan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Table rows will be added dynamically -->
+    </tbody>
+  </table>
+
+  <!-- Include jsQR from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+
+  <script>
+    const video = document.getElementById('camera');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    const qrTableBody = document.querySelector("#qrTable tbody");
+    const totalValueElement = document.getElementById('totalValue');
+    const scannedValueDisplay = document.getElementById('scannedValue');
+    const acceptBtn = document.getElementById('acceptBtn');
+    const rejectBtn = document.getElementById('rejectBtn');
+    
+    // Initialize total value and current QR value
+    let totalValue = 0;
+    let currentQRValue = null;
+
+    // Load any saved data from localStorage when the page loads
+    window.onload = function() {
+      const storedData = JSON.parse(localStorage.getItem('scannedQRs')) || [];
+      totalValue = storedData.reduce((sum, item) => sum + Number(item.value), 0);
+      totalValueElement.textContent = totalValue;
+      displayStoredData(storedData);
+    };
+
+    // Function to start scanning the QR code
+    function scanQRCode() {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+      const code = jsQR(imageData.data, canvas.width, canvas.height);
+
+      if (code) {
+        const qrValue = code.data;
+
+        // Check if the value is a valid integer
+        if (isInteger(qrValue)) {
+          currentQRValue = qrValue;
+          // Display the QR code value automatically
+          scannedValueDisplay.textContent = qrValue;
+        } else {
+          currentQRValue = null;
+          scannedValueDisplay.textContent = 'Invalid QR Code';
+        }
+      } else {
+        currentQRValue = null;
+        scannedValueDisplay.textContent = 'None';
+      }
+
+      requestAnimationFrame(scanQRCode); // Keep scanning
+    }
+
+    // Helper function to check if a value is an integer
+    function isInteger(value) {
+      const num = Number(value);
+      return Number.isInteger(num);
+    }
+
+    // Save the scanned QR code and date to localStorage
+    function saveQRCode(qrData) {
+      let scannedQRs = JSON.parse(localStorage.getItem('scannedQRs')) || [];
+      scannedQRs.push(qrData);
+      localStorage.setItem('scannedQRs', JSON.stringify(scannedQRs));
+
+      // Display the new data in the table
+      addToTable(qrData);
+    }
+
+    // Add a new row to the table
+    function addToTable(qrData) {
+      const row = document.createElement('tr');
+      const qrValueCell = document.createElement('td');
+      const dateCell = document.createElement('td');
+
+      qrValueCell.textContent = qrData.value;
+      dateCell.textContent = qrData.date;
+
+      row.appendChild(qrValueCell);
+      row.appendChild(dateCell);
+      qrTableBody.appendChild(row);
+    }
+
+    // Display all stored data in the table
+    function displayStoredData(storedData) {
+      storedData.forEach(qrData => addToTable(qrData));
+    }
+
+    // Handle accept button click
+    acceptBtn.addEventListener('click', function() {
+      if (currentQRValue !== null) {
+        const currentDate = new Date().toLocaleString();
+        const newQRData = { value: currentQRValue, date: currentDate };
+        saveQRCode(newQRData);
+
+        // Update total value
+        totalValue += Number(currentQRValue);
+        totalValueElement.textContent = totalValue;
+
+        // Reset currentQRValue after saving
+        currentQRValue = null;
+        scannedValueDisplay.textContent = 'None';
+      }
+    });
+
+    // Handle reject button click
+    rejectBtn.addEventListener('click', function() {
+      // Simply reset the currentQRValue, ignoring the current scan
+      currentQRValue = null;
+      scannedValueDisplay.textContent = 'None';
+    });
+
+    // Check if the browser supports the getUserMedia API
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { exact: "environment" } }
+      }).then(function(stream) {
+        video.srcObject = stream;
+        video.setAttribute('playsinline', true); // Required to tell iOS Safari we don't want fullscreen
+
+        video.onloadedmetadata = function() {
+          video.play();
+          requestAnimationFrame(scanQRCode); // Start scanning
+        };
+      }).catch(function(err) {
+        console.error("Error accessing the camera: " + err);
+      });
+    } else {
+      alert("getUserMedia not supported in this browser.");
+    }
+  </script>
+</body>
+</html>
