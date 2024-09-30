@@ -4,13 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QR Code Scanner with Validation</title>
-   <script>
-        // Function to disable right-click
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault(); // Prevent the default context menu
-            alert("Right-click is disabled on this page."); // Optional: alert the user
-        });
-  </script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -50,12 +43,11 @@
     }
     .buttons {
       display: flex;
-      justify-content: center; /* Center buttons */
+      justify-content: space-between;
       margin-top: 10px;
       width: 50%;
       margin-left: auto;
       margin-right: auto;
-      gap: 20px; /* Space between buttons */
     }
     .buttons button {
       padding: 10px 20px;
@@ -71,14 +63,29 @@
       background-color: #dc3545;
       color: white;
     }
-    .reset, .home {
+
+    /* Common style for Reset and Home buttons */
+    .action-btn {
+      background-color: #007bff;
+      color: white;
       padding: 10px 20px;
+      text-decoration: none;
       font-size: 16px;
       border: none;
+      border-radius: 5px;
+      margin: 20px 10px;
       cursor: pointer;
-      margin-top: 20px; /* Space from other elements */
-      background-color: #007bff; /* Example background color */
-      color: white;
+      display: inline-block;
+    }
+    .action-btn:hover {
+      background-color: #0056b3;
+    }
+
+    #qrValueDisplay {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #007bff;
     }
   </style>
 </head>
@@ -87,6 +94,9 @@
   <h2>Total Value: <span id="totalValue">0</span></h2>
   <video id="camera" autoplay playsinline></video>
   <canvas id="canvas"></canvas>
+
+  <!-- Display the scanned QR value automatically -->
+  <div id="qrValueDisplay">Scanned QR Code: <span id="scannedValue">None</span></div>
 
   <div class="buttons">
     <button class="reject" id="rejectBtn">Reject</button>
@@ -106,8 +116,11 @@
     </tbody>
   </table>
 
-  <button class="reset" id="resetBtn">Reset Stored Values</button>
-  <button class="home" onclick="window.location.href='index.html'">Return to Home</button>
+  <!-- Reset Button -->
+  <button class="action-btn" id="resetBtn">Reset Stored Data</button>
+
+  <!-- Button to return to Home page -->
+  <a href="index.html" class="action-btn">Return to Home</a>
 
   <!-- Include jsQR from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
@@ -118,6 +131,7 @@
     const context = canvas.getContext('2d');
     const qrTableBody = document.querySelector("#qrTable tbody");
     const totalValueElement = document.getElementById('totalValue');
+    const scannedValueDisplay = document.getElementById('scannedValue');
     const acceptBtn = document.getElementById('acceptBtn');
     const rejectBtn = document.getElementById('rejectBtn');
     const resetBtn = document.getElementById('resetBtn');
@@ -149,11 +163,15 @@
         // Check if the value is a valid integer
         if (isInteger(qrValue)) {
           currentQRValue = qrValue;
+          // Display the QR code value automatically
+          scannedValueDisplay.textContent = qrValue;
         } else {
           currentQRValue = null;
+          scannedValueDisplay.textContent = 'Invalid QR Code';
         }
       } else {
         currentQRValue = null;
+        scannedValueDisplay.textContent = 'None';
       }
 
       requestAnimationFrame(scanQRCode); // Keep scanning
@@ -207,6 +225,7 @@
 
         // Reset currentQRValue after saving
         currentQRValue = null;
+        scannedValueDisplay.textContent = 'None';
       }
     });
 
@@ -214,14 +233,25 @@
     rejectBtn.addEventListener('click', function() {
       // Simply reset the currentQRValue, ignoring the current scan
       currentQRValue = null;
+      scannedValueDisplay.textContent = 'None';
     });
 
-    // Handle reset button click
+    // Reset button click: Clears all stored data and resets the table
     resetBtn.addEventListener('click', function() {
-      localStorage.removeItem('scannedQRs'); // Reset stored data
-      totalValue = 0; // Reset total value
-      totalValueElement.textContent = totalValue; // Update displayed total value
-      qrTableBody.innerHTML = ''; // Clear the table
+      if (confirm("Are you sure you want to reset all stored data?")) {
+        // Clear localStorage
+        localStorage.removeItem('scannedQRs');
+
+        // Reset total value
+        totalValue = 0;
+        totalValueElement.textContent = totalValue;
+
+        // Clear the table
+        qrTableBody.innerHTML = '';
+        
+        // Reset scanned value display
+        scannedValueDisplay.textContent = 'None';
+      }
     });
 
     // Check if the browser supports the getUserMedia API
