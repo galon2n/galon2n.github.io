@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR Code Scanner with Validation</title>
+  <title>Scanner de Code QR avec Validation</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -91,24 +91,24 @@
 </head>
 <body>
 
-  <h2>Total Value: <span id="totalValue">0</span></h2>
+  <h2>Valeur Totale: <span id="totalValue">0</span> DA</h2>
   <video id="camera" autoplay playsinline></video>
   <canvas id="canvas"></canvas>
 
   <!-- Display the scanned QR value automatically -->
-  <div id="qrValueDisplay">Scanned QR Code: <span id="scannedValue">None</span></div>
+  <div id="qrValueDisplay">Code QR scanné: <span id="scannedValue">None</span></div>
 
   <div class="buttons">
-    <button class="reject" id="rejectBtn">Reject</button>
-    <button class="accept" id="acceptBtn">Accept</button>
+    <button class="reject" id="rejectBtn">Rejeter</button>
+    <button class="accept" id="acceptBtn">Accepter</button>
   </div>
 
-  <h2>Scanned Codes</h2>
+  <h2>Codes scannés</h2>
   <table id="qrTable">
     <thead>
       <tr>
-        <th>QR Code Value</th>
-        <th>Date of Scan</th>
+        <th>QR Code Valeur</th>
+        <th>Date de Scan</th>
       </tr>
     </thead>
     <tbody>
@@ -117,10 +117,10 @@
   </table>
 
   <!-- Reset Button -->
-  <button class="action-btn" id="resetBtn">Reset Stored Data</button>
+  <button class="action-btn" id="resetBtn">Réinitialiser Tout</button>
 
   <!-- Button to return to Home page -->
-  <a href="index.html" class="action-btn">Return to Home</a>
+  <a href="index.html" class="action-btn">Retour à l'Accueil</a>
 
   <!-- Include jsQR from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
