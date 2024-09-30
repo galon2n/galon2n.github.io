@@ -279,3 +279,31 @@ h2 {
         margin: 10px 0;
     }
 }
+
+
+
+
+
+
+.btn-scan {
+    padding: 15px 30px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    margin: 20px;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 200px; /* Set a width for consistency */
+    text-transform: uppercase;
+}
+
+.btn-scan:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
