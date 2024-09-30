@@ -63,6 +63,21 @@
       background-color: #dc3545;
       color: white;
     }
+    .reset {
+      background-color: #ffc107;
+      color: white;
+      margin-top: 20px;
+      width: 200px;
+    }
+    .home {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 16px;
+    }
     #qrValueDisplay {
       font-size: 1.5rem;
       font-weight: bold;
@@ -98,6 +113,12 @@
     </tbody>
   </table>
 
+  <!-- Reset Button -->
+  <button class="reset" id="resetBtn">Reset Stored Data</button>
+
+  <!-- Button to return to Home page -->
+  <a href="index.html" class="home">Return to Home</a>
+
   <!-- Include jsQR from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
 
@@ -110,7 +131,8 @@
     const scannedValueDisplay = document.getElementById('scannedValue');
     const acceptBtn = document.getElementById('acceptBtn');
     const rejectBtn = document.getElementById('rejectBtn');
-    
+    const resetBtn = document.getElementById('resetBtn');
+
     // Initialize total value and current QR value
     let totalValue = 0;
     let currentQRValue = null;
@@ -209,6 +231,24 @@
       // Simply reset the currentQRValue, ignoring the current scan
       currentQRValue = null;
       scannedValueDisplay.textContent = 'None';
+    });
+
+    // Reset button click: Clears all stored data and resets the table
+    resetBtn.addEventListener('click', function() {
+      if (confirm("Are you sure you want to reset all stored data?")) {
+        // Clear localStorage
+        localStorage.removeItem('scannedQRs');
+
+        // Reset total value
+        totalValue = 0;
+        totalValueElement.textContent = totalValue;
+
+        // Clear the table
+        qrTableBody.innerHTML = '';
+        
+        // Reset scanned value display
+        scannedValueDisplay.textContent = 'None';
+      }
     });
 
     // Check if the browser supports the getUserMedia API
