@@ -91,24 +91,24 @@
 </head>
 <body>
 
-  <h2>Total Value: <span id="totalValue">0</span></h2>
+  <h2>Valeur Totale: <span id="totalValue">0</span></h2>
   <video id="camera" autoplay playsinline></video>
   <canvas id="canvas"></canvas>
 
   <!-- Display the scanned QR value automatically -->
-  <div id="qrValueDisplay">Scanned QR Code: <span id="scannedValue">None</span></div>
+  <div id="qrValueDisplay">Code QR Scanné: <span id="scannedValue">None</span></div>
 
   <div class="buttons">
-    <button class="reject" id="rejectBtn">Reject</button>
-    <button class="accept" id="acceptBtn">Accept</button>
+    <button class="reject" id="rejectBtn">Rejeter</button>
+    <button class="accept" id="acceptBtn">Accepter</button>
   </div>
 
-  <h2>Scanned Codes</h2>
+  <h2>Codes Scannés</h2>
   <table id="qrTable">
     <thead>
       <tr>
-        <th>QR Code Value</th>
-        <th>Date of Scan</th>
+        <th>Valeur du Code QR</th>
+        <th>Date du Scan</th>
       </tr>
     </thead>
     <tbody>
@@ -117,10 +117,10 @@
   </table>
 
   <!-- Reset Button -->
-  <button class="action-btn" id="resetBtn">Reset Stored Data</button>
+  <button class="action-btn" id="resetBtn">Réinitialiser</button>
 
   <!-- Button to return to Home page -->
-  <a href="index.html" class="action-btn">Return to Home</a>
+  <a href="index.html" class="action-btn">Retour à l'Accueil</a>
 
   <!-- Include jsQR from CDN -->
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
